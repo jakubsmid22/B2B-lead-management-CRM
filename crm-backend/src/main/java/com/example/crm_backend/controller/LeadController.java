@@ -1,11 +1,13 @@
 package com.example.crm_backend.controller;
 
-import com.example.crm_backend.entity.Lead;
+import com.example.crm_backend.dto.request.LeadRequest;
+import com.example.crm_backend.dto.request.LeadResponse;
 import com.example.crm_backend.service.LeadService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,7 +19,13 @@ public class LeadController {
     private final LeadService leadService;
 
     @GetMapping
-    public List<Lead> getAll() {
-        return leadService.getAll();
+    public ResponseEntity<List<LeadResponse>> getAll() {
+        return ResponseEntity.status(HttpStatus.OK).body(leadService.getAll());
     }
+
+    @PostMapping
+    public ResponseEntity<LeadResponse> create(@RequestBody @Valid LeadRequest request) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(leadService.createLead(request));
+    }
+
 }
