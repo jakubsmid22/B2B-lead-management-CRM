@@ -6,11 +6,12 @@ import com.example.crm_backend.dto.request.LeadStatusUpdateRequest;
 import com.example.crm_backend.service.LeadService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/leads")
@@ -20,8 +21,8 @@ public class LeadController {
     private final LeadService leadService;
 
     @GetMapping
-    public ResponseEntity<List<LeadResponse>> getAll() {
-        return ResponseEntity.status(HttpStatus.OK).body(leadService.getAll());
+    public ResponseEntity<Page<LeadResponse>> getAll(Pageable pageable) {
+        return ResponseEntity.status(HttpStatus.OK).body(leadService.getAll(pageable));
     }
 
     @PostMapping

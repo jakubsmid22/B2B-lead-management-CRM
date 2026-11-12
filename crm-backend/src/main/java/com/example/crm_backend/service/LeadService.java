@@ -9,10 +9,11 @@ import com.example.crm_backend.exception.LeadNotFoundException;
 import com.example.crm_backend.mapper.LeadMapper;
 import com.example.crm_backend.repository.LeadRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -21,8 +22,9 @@ public class LeadService {
     private final LeadRepository leadRepository;
     private final LeadMapper leadMapper;
 
-    public List<LeadResponse> getAll() {
-        return leadRepository.findAll().stream().map(leadMapper::toResponse).toList();
+    public Page<LeadResponse> getAll(Pageable pageable) {
+        Page<Lead> page = leadRepository.findAll(pageable);
+        return page.map(leadMapper::toResponse);
     }
 
     public LeadResponse createLead(LeadRequest request) {
