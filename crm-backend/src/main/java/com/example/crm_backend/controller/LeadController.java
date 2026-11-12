@@ -2,6 +2,7 @@ package com.example.crm_backend.controller;
 
 import com.example.crm_backend.dto.request.LeadRequest;
 import com.example.crm_backend.dto.request.LeadResponse;
+import com.example.crm_backend.dto.request.LeadStatusUpdateRequest;
 import com.example.crm_backend.service.LeadService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +27,11 @@ public class LeadController {
     @PostMapping
     public ResponseEntity<LeadResponse> create(@RequestBody @Valid LeadRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(leadService.createLead(request));
+    }
+
+    @PatchMapping("/{id}/status")
+    public ResponseEntity<LeadResponse> updateStatus(@PathVariable Long id, @RequestBody @Valid LeadStatusUpdateRequest request) {
+        return ResponseEntity.ok(leadService.updateStatus(id, request));
     }
 
 }
