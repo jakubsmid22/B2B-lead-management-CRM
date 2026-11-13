@@ -22,8 +22,25 @@ public class LeadService {
     private final LeadRepository leadRepository;
     private final LeadMapper leadMapper;
 
-    public Page<LeadResponse> getAll(Pageable pageable) {
-        Page<Lead> page = leadRepository.findAll(pageable);
+    public Page<LeadResponse> getAll(Pageable pageable, BusinessStatus status, String name) {
+        Page<Lead> page;
+
+        boolean hasStatus = status != null;
+        boolean hasName = name != null && !name.isBlank();
+
+        if (hasStatus && hasName) {
+            page = leadRepository.findByStatusAndNameContainingIgnoreCase(status, name, pageable);
+        }
+        else if(hasStatus) {
+            page = leadRepository.findByStatus(status, pageable);
+        }
+        else if(hasName) {
+            page = leadRepository.findByNameContainingIgnoreCase(name, pageable);
+        }
+        else {
+            page = leadRepository.findAll(pageable);
+        }
+
         return page.map(leadMapper::toResponse);
     }
 

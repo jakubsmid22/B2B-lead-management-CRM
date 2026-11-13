@@ -3,6 +3,7 @@ package com.example.crm_backend.controller;
 import com.example.crm_backend.dto.request.LeadRequest;
 import com.example.crm_backend.dto.request.LeadResponse;
 import com.example.crm_backend.dto.request.LeadStatusUpdateRequest;
+import com.example.crm_backend.entity.enums.BusinessStatus;
 import com.example.crm_backend.service.LeadService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -21,8 +22,8 @@ public class LeadController {
     private final LeadService leadService;
 
     @GetMapping
-    public ResponseEntity<Page<LeadResponse>> getAll(Pageable pageable) {
-        return ResponseEntity.status(HttpStatus.OK).body(leadService.getAll(pageable));
+    public ResponseEntity<Page<LeadResponse>> getAll(@RequestParam(required = false) BusinessStatus status, @RequestParam(required = false) String name, Pageable pageable) {
+        return ResponseEntity.status(HttpStatus.OK).body(leadService.getAll(pageable, status, name));
     }
 
     @PostMapping
