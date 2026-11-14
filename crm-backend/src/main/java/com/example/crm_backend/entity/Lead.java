@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter
@@ -28,4 +29,6 @@ public class Lead {
 
     private LocalDateTime createdAt;
 
+    @OneToMany(mappedBy = "lead")
+    private List<Note> notes;
 }

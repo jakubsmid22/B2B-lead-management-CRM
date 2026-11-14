@@ -1,10 +1,13 @@
 package com.example.crm_backend.controller;
 
 import com.example.crm_backend.dto.request.LeadRequest;
-import com.example.crm_backend.dto.request.LeadResponse;
+import com.example.crm_backend.dto.request.NoteRequest;
+import com.example.crm_backend.dto.response.LeadResponse;
 import com.example.crm_backend.dto.request.LeadStatusUpdateRequest;
+import com.example.crm_backend.dto.response.NoteResponse;
 import com.example.crm_backend.entity.enums.BusinessStatus;
 import com.example.crm_backend.service.LeadService;
+import com.example.crm_backend.service.NoteService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -12,6 +15,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
@@ -21,14 +26,26 @@ public class LeadController {
 
     private final LeadService leadService;
 
+    private final NoteService noteService;
+
     @GetMapping
     public ResponseEntity<Page<LeadResponse>> getAll(@RequestParam(required = false) BusinessStatus status, @RequestParam(required = false) String name, Pageable pageable) {
-        return ResponseEntity.status(HttpStatus.OK).body(leadService.getAll(pageable, status, name));
+        return ResponseEntity.ok(leadService.getAll(pageable, status, name));
+    }
+
+    @GetMapping("/{leadId}/notes")
+    public ResponseEntity<List<NoteResponse>> getAllNotesFromLead(@PathVariable Long leadId) {
+        return ResponseEntity.ok(noteService.getAllByLeadId(leadId));
     }
 
     @PostMapping
     public ResponseEntity<LeadResponse> create(@RequestBody @Valid LeadRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(leadService.createLead(request));
+    }
+
+    @PostMapping("/{leadId}/notes")
+    public ResponseEntity<NoteResponse> addNote(@RequestBody @Valid NoteRequest request, @PathVariable Long leadId) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(noteService.add(request, leadId));
     }
 
     @PatchMapping("/{id}/status")

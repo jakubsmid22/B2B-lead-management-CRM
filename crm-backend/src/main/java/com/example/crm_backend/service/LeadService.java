@@ -1,7 +1,7 @@
 package com.example.crm_backend.service;
 
 import com.example.crm_backend.dto.request.LeadRequest;
-import com.example.crm_backend.dto.request.LeadResponse;
+import com.example.crm_backend.dto.response.LeadResponse;
 import com.example.crm_backend.dto.request.LeadStatusUpdateRequest;
 import com.example.crm_backend.entity.Lead;
 import com.example.crm_backend.entity.enums.BusinessStatus;

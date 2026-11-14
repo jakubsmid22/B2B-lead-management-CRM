@@ -1,4 +1,4 @@
-package com.example.crm_backend.dto.request;
+package com.example.crm_backend.dto.response;
 
 import com.example.crm_backend.entity.enums.BusinessStatus;
 
