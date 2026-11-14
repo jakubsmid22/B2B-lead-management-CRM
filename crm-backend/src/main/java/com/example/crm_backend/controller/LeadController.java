@@ -28,6 +28,11 @@ public class LeadController {
 
     private final NoteService noteService;
 
+    @GetMapping("/{id}")
+    public ResponseEntity<LeadResponse> get(@PathVariable Long id) {
+        return ResponseEntity.ok(leadService.get(id));
+    }
+
     @GetMapping
     public ResponseEntity<Page<LeadResponse>> getAll(@RequestParam(required = false) BusinessStatus status, @RequestParam(required = false) String name, Pageable pageable) {
         return ResponseEntity.ok(leadService.getAll(pageable, status, name));
@@ -52,5 +57,17 @@ public class LeadController {
     public ResponseEntity<LeadResponse> updateStatus(@PathVariable Long id, @RequestBody @Valid LeadStatusUpdateRequest request) {
         return ResponseEntity.ok(leadService.updateStatus(id, request));
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        leadService.delete(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+     @DeleteMapping("/notes/{noteId}")
+    public ResponseEntity<Void> deleteNote(@PathVariable Long noteId) {
+        noteService.delete(noteId);
+         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+     }
 
 }

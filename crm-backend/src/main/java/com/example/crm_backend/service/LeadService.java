@@ -22,6 +22,12 @@ public class LeadService {
     private final LeadRepository leadRepository;
     private final LeadMapper leadMapper;
 
+    public LeadResponse get(Long id) {
+        return leadMapper.toResponse(leadRepository
+                .findById(id)
+                .orElseThrow(() -> new LeadNotFoundException(id)));
+    }
+
     public Page<LeadResponse> getAll(Pageable pageable, BusinessStatus status, String name) {
         Page<Lead> page;
 
@@ -64,6 +70,11 @@ public class LeadService {
         Lead updatedLead = leadRepository.save(lead);
 
         return leadMapper.toResponse(updatedLead);
+    }
+
+    public void delete(Long id) {
+        Lead lead = leadRepository.findById(id).orElseThrow(() -> new LeadNotFoundException(id));
+        leadRepository.delete(lead);
     }
 
 }

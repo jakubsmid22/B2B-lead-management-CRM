@@ -29,6 +29,6 @@ public class Lead {
 
     private LocalDateTime createdAt;
 
-    @OneToMany(mappedBy = "lead")
+    @OneToMany(mappedBy = "lead", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Note> notes;
 }

@@ -5,6 +5,7 @@ import com.example.crm_backend.dto.response.NoteResponse;
 import com.example.crm_backend.entity.Lead;
 import com.example.crm_backend.entity.Note;
 import com.example.crm_backend.exception.LeadNotFoundException;
+import com.example.crm_backend.exception.NoteNotFoundException;
 import com.example.crm_backend.mapper.NoteMapper;
 import com.example.crm_backend.repository.LeadRepository;
 import com.example.crm_backend.repository.NoteRepository;
@@ -46,6 +47,15 @@ public class NoteService {
         note.setCreatedAt(LocalDateTime.now());
 
         return noteMapper.toResponse(noteRepository.save(note));
+    }
+
+    public void delete(Long id) {
+
+        if (!noteRepository.existsById(id)) {
+            throw new NoteNotFoundException(id);
+        }
+
+        noteRepository.deleteById(id);
     }
 
 }
