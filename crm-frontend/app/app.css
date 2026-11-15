@@ -1,1 +1,30 @@
 @import "tailwindcss";
+
+@theme {
+  --color-app-bg: #f8fafc;
+  --color-surface: #ffffff;
+  --color-side-bar: #0f172a;
+  --color-borders: #e2e8f0;
+  --color-hover: #f1f5f9;
+  --color-primary-text: #0f172a;
+  --color-secondary-text: #475569;
+  --color-muted-text: #94a3b8;
+  --color-primary-button: #4f46e5;
+  --color-hover-button: #4338ca;
+  --color-active-bg: #ecfdf5;
+  --color-active-text: #047857;
+  --color-new-bg: #f0f9ff;
+  --color-new-text: #0369a1;
+  --color-negotiation-bg: #fffbeb;
+  --color-negotiation-text: #b45309;
+  --color-error-bg: #fff1f2;
+  --color-error-text: #be123c;
+}
+
+main {
+  @apply flex-1 w-full max-w-250;
+}
+
+body {
+  @apply bg-app-bg text-primary-text flex min-h-screen flex-col items-center;
+}

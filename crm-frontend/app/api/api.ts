@@ -25,12 +25,19 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   (response) => response,
   (error: AxiosError) => {
-    if (error.response?.status === 401) {
+    if (
+      error.response?.status === 401 &&
+      !error.config?.url?.includes("/auth/login")
+    ) {
       localStorage.removeItem("token");
       window.location.href = "/login";
     }
     return Promise.reject(error);
   },
 );
+
+export interface ApiAuthErrorResponse {
+  error: string;
+}
 
 export default api;
