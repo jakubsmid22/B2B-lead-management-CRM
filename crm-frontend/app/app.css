@@ -28,3 +28,7 @@ main {
 body {
   @apply bg-app-bg text-primary-text flex min-h-screen flex-col items-center;
 }
+
+.text-input {
+  @apply border-borders cursor-pointer rounded-md border-2 p-2;
+}

@@ -52,7 +52,7 @@ const Login = () => {
               type="text"
               id="username"
               placeholder="Přihlašovací jméno"
-              className="border-borders cursor-pointer rounded-md border-2 p-2"
+              className="text-input"
               onChange={(e) => setUsername(e.target.value)}
               value={username}
             />
@@ -66,7 +66,7 @@ const Login = () => {
               type="password"
               id="password"
               placeholder="Heslo"
-              className="border-borders cursor-pointer rounded-md border-2 p-2"
+              className="text-input"
               onChange={(e) => setPassword(e.target.value)}
               value={password}
             />
