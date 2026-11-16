@@ -1,8 +1,8 @@
 import axios from "axios";
 import { useEffect, useState, type SubmitEventHandler } from "react";
-import { replace, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import { toast, ToastContainer } from "react-toastify";
-import api, { type ApiAuthErrorResponse } from "~/api/api";
+import api, { type ApiErrorResponse } from "~/api/api";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -11,7 +11,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    localStorage.getItem("token") && navigate("/leads", { replace: true });
+    localStorage.getItem("token") && navigate("/", { replace: true });
   }, []);
 
   const handleLogin: SubmitEventHandler<HTMLFormElement> = async (e) => {
@@ -24,9 +24,9 @@ const Login = () => {
       });
 
       localStorage.setItem("token", res.data.token);
-      navigate("/leads", { replace: true });
+      navigate("/", { replace: true });
     } catch (error: unknown) {
-      if (axios.isAxiosError<ApiAuthErrorResponse>(error)) {
+      if (axios.isAxiosError<ApiErrorResponse>(error)) {
         if (error.response?.status === 401) {
           toast.error(error.response.data?.error);
         } else {

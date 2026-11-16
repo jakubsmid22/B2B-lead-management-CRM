@@ -36,7 +36,7 @@ api.interceptors.response.use(
   },
 );
 
-export interface ApiAuthErrorResponse {
+export interface ApiErrorResponse {
   error: string;
 }
 

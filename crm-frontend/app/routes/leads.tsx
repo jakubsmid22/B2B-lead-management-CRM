@@ -8,6 +8,7 @@ import {
 } from "react-router";
 import api from "~/api/api";
 import type { PageResponse } from "~/api/types";
+import AddLeadModal from "~/components/AddLeadModal";
 
 export const clientLoader = async ({ request }: ClientLoaderFunctionArgs) => {
   const url = new URL(request.url);
@@ -104,6 +105,8 @@ const Leads = () => {
         </div>
       </div>
 
+      <AddLeadModal/>
+
       <div className="bg-surface border-borders overflow-hidden rounded-lg border shadow-xs">
         <div className="overflow-x-auto">
           <table className="w-full border-collapse text-left text-sm">
@@ -135,7 +138,7 @@ const Leads = () => {
                     <tr
                       key={id}
                       className="hover:bg-hover transition-colors duration-150 cursor-pointer"
-                      onClick={() => navigate(`/lead/${id}`)}
+                      onClick={() => navigate(`/${id}`)}
                     >
                       <td className="text-primary-text px-6 py-4 font-medium">
                         {name}

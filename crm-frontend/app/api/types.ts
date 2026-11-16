@@ -3,9 +3,11 @@ export interface Lead {
     name: string,
     email: string,
     phoneNumber: string,
-    status: "NEW" | "CONTACTED" | "QUALIFIED" | "WON" | "LOST",
+    status: Status,
     createdAt: string
 }
+
+export type Status = "NEW" | "CONTACTED" | "QUALIFIED" | "WON" | "LOST";
 
 export interface PageResponse {
     content: Lead[],
